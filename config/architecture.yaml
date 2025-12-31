@@ -1,0 +1,141 @@
+conv_architecture:
+# block 1
+  - type: conv2d
+    args:
+      in_channels: 3
+      out_channels: 64
+      kernel_size: 7
+      stride: 2
+      padding: 0
+  - type: maxpool
+    args:
+      kernel_size: 2
+      stride: 2
+# block 2
+  - type: conv2d
+    args:
+      in_channels: 64
+      out_channels: 192
+      kernel_size: 3
+      stride: 1
+      padding: 0
+  - type: maxpool
+    args:
+      kernel_size: 2
+      stride: 2
+# block 3
+  - type: conv2d
+    args:
+      in_channels: 192
+      out_channels: 128
+      kernel_size: 3
+      stride: 1
+      padding: 0
+  - type: conv2d
+    args:
+      in_channels: 128
+      out_channels: 256
+      kernel_size: 3
+      stride: 1
+      padding: 0
+  - type: conv2d
+    args:
+      in_channels: 256
+      out_channels: 256
+      kernel_size: 3
+      stride: 1
+      padding: 0
+  - type: conv2d
+    args:
+      in_channels: 256
+      out_channels: 512
+      kernel_size: 3
+      stride: 1
+      padding: 0
+  - type: maxpool
+    args:
+      kernel_size: 2
+      stride: 2
+# block 4
+  - type: repetative_conv
+    repetation: 4
+    content:
+    - type: conv2d
+      args:
+        in_channels: 512
+        out_channels: 256
+        kernel_size: 1
+        stride: 1
+        padding: 0
+    - type: conv2d
+      args:
+        in_channels: 256
+        out_channels: 512
+        kernel_size: 3
+        stride: 1
+        padding: 0
+  - type: conv2d
+    args:
+      in_channels: 512
+      out_channels: 512
+      kernel_size: 1
+      stride: 1
+      padding: 0
+  - type: conv2d
+    args:
+      in_channels: 512
+      out_channels: 1024
+      kernel_size: 3
+      stride: 1
+      padding: 0
+  - type: maxpool
+    args:
+      kernel_size: 2
+      stride: 2
+# block 5      
+  - type: repetative_conv
+    repetation: 2
+    content:
+    - type: conv2d
+      args:
+        in_channels: 1024
+        out_channels: 512
+        kernel_size: 1
+        stride: 1
+        padding: 0
+    - type: conv2d
+      args:
+        in_channels: 512
+        out_channels: 1024
+        kernel_size: 3
+        stride: 1
+        padding: 0
+  - type: conv2d
+    args:
+      in_channels: 1024
+      out_channels: 1024
+      kernel_size: 3
+      stride: 1
+      padding: 0
+  - type: conv2d
+    args:
+      in_channels: 1024
+      out_channels: 1024
+      kernel_size: 3
+      stride: 2
+      padding: 0
+# block 6
+  - type: conv2d
+    args:
+      in_channels: 1024
+      out_channels: 1024
+      kernel_size: 3
+      stride: 1
+      padding: 0
+  - type: conv2d
+    args:
+      in_channels: 1024
+      out_channels: 1024
+      kernel_size: 3
+      stride: 1
+      padding: 0
