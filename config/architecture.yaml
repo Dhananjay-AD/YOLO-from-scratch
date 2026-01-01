@@ -6,7 +6,7 @@ conv_architecture:
       out_channels: 64
       kernel_size: 7
       stride: 2
-      padding: 0
+      padding: 3
   - type: maxpool
     args:
       kernel_size: 2
@@ -18,7 +18,7 @@ conv_architecture:
       out_channels: 192
       kernel_size: 3
       stride: 1
-      padding: 0
+      padding: 1
   - type: maxpool
     args:
       kernel_size: 2
@@ -37,7 +37,7 @@ conv_architecture:
       out_channels: 256
       kernel_size: 3
       stride: 1
-      padding: 0
+      padding: 1
   - type: conv2d
     args:
       in_channels: 256
@@ -51,7 +51,7 @@ conv_architecture:
       out_channels: 512
       kernel_size: 3
       stride: 1
-      padding: 0
+      padding: 1
   - type: maxpool
     args:
       kernel_size: 2
@@ -73,7 +73,7 @@ conv_architecture:
         out_channels: 512
         kernel_size: 3
         stride: 1
-        padding: 0
+        padding: 1
   - type: conv2d
     args:
       in_channels: 512
@@ -87,7 +87,7 @@ conv_architecture:
       out_channels: 1024
       kernel_size: 3
       stride: 1
-      padding: 0
+      padding: 1
   - type: maxpool
     args:
       kernel_size: 2
@@ -109,21 +109,21 @@ conv_architecture:
         out_channels: 1024
         kernel_size: 3
         stride: 1
-        padding: 0
+        padding: 1
   - type: conv2d
     args:
       in_channels: 1024
       out_channels: 1024
       kernel_size: 3
       stride: 1
-      padding: 0
+      padding: 1
   - type: conv2d
     args:
       in_channels: 1024
       out_channels: 1024
       kernel_size: 3
       stride: 2
-      padding: 0
+      padding: 1
 # block 6
   - type: conv2d
     args:
@@ -131,11 +131,11 @@ conv_architecture:
       out_channels: 1024
       kernel_size: 3
       stride: 1
-      padding: 0
+      padding: 1
   - type: conv2d
     args:
       in_channels: 1024
       out_channels: 1024
       kernel_size: 3
       stride: 1
-      padding: 0
+      padding: 1
