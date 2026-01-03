@@ -6,8 +6,8 @@ from util.util import intersection_over_union
 class YoloLoss(nn.Module):
     def __init__(self, S = 7, B = 2, C = 20):
         super().__init__()
-        self.S = S,
-        self.B = B,
+        self.S = S
+        self.B = B
         self.C = C
         self.lambda_noobj = 0.5
         self.lambda_coord = 5
@@ -37,8 +37,8 @@ class YoloLoss(nn.Module):
         bbox_targets = exist_obj*target[..., 21:25]
 
         # updated the width and height with their square root as per the loss fn in Yolov1 paper
-        bbox_predictions[..., 2,4] = torch.sign(bbox_predictions[..., 2:4]*torch.sqrt(torch.abs(bbox_predictions[...,2:4])))
-        bbox_targets[..., 2,4] = torch.sqrt(bbox_targets[..., 2:4])
+        bbox_predictions[..., 2:4] = torch.sign(bbox_predictions[..., 2:4]*torch.sqrt(torch.abs(bbox_predictions[...,2:4])))
+        bbox_targets[..., 2:4] = torch.sqrt(bbox_targets[..., 2:4])
 
         # loss considering bbox paramters where object exist
         box_loss = self.lambda_coord*self.mse(bbox_predictions[..., 0:4], target[..., 21:25])
@@ -53,16 +53,16 @@ class YoloLoss(nn.Module):
 
         # loss of probability showing object present where object exist
         object_loss = self.mse(obj_predictions, obj_targets)
-
+    
         ## --------------------------------------------- ##
         ##  no object loss if there is no object present ##
         ## --------------------------------------------- ##
 
         # loss of probability showing object present where object does not exist
-        no_object_loss = self.lambda_noobj*self.mse((1 - exist_obj)*predictions[..., 20:21], (1 - exist_obj)*(target[..., 21:21]))
+        no_object_loss = self.lambda_noobj*self.mse((1 - exist_obj)*predictions[..., 20:21], (1 - exist_obj)*(target[..., 20:21]))
 
-        no_object_loss += self.lambda_noobj*self.mse((1 - exist_obj)*predictions[..., 25:26], (1 - exist_obj)*(target[..., 21:21]))
-
+        no_object_loss += self.lambda_noobj*self.mse((1 - exist_obj)*predictions[..., 25:26], (1 - exist_obj)*(target[..., 20:21]))
+        
         ## ---------- ##
         ## class loss ##
         ## ---------- ##
@@ -74,3 +74,5 @@ class YoloLoss(nn.Module):
                 + object_loss         # loss due to object present probability when object exist
                 + no_object_loss      # loss due to object present probability when object doesnt exist
                 + class_loss)         # loss due to class probability 
+        print(f" box loss = {box_loss} | object loss = {object_loss} | no object loss = {no_object_loss} | class_loss = {class_loss}")
+        return loss
