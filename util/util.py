@@ -1,4 +1,6 @@
 import torch
+import torch.nn as nn
+import torchvision.transforms as transforms
 
 def intersection_over_union(predictions, target):
     """calculate iou between predictions and targets
@@ -35,3 +37,9 @@ def intersection_over_union(predictions, target):
     intersection_over_union = intersection_area/(prediction_area + target_area - intersection_area)
 
     return intersection_over_union
+
+
+transform = transforms.Compose([
+    transforms.Resize(size = (448,448)),
+    transforms.ToTensor()
+])
