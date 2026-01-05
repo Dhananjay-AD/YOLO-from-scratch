@@ -37,17 +37,17 @@ def main():
                                  shuffle = True,
                                  )
     
+    # device agnostic code
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+
     # model
     model = YOLOv1()
-
+    model.to(device)
     # loss
     loss = YoloLoss()
 
     # optimizer
-    optimizer = torch.optim.Adam(params = model.parameters(), lr = 0.001)
-
-    # device agnostic code
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    optimizer = torch.optim.SGD(params = model.parameters(), lr = 0.001)
 
     count = train(epochs = 1,
                   model = model,
